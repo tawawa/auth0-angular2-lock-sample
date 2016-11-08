@@ -7,20 +7,30 @@ declare var Auth0Lock: any;
 
 @Injectable()
 export class Auth {
-    // Configure Auth0
-    // lock = new Auth0Lock(myConfig.clientID, myConfig.domain, {});
-
         lock = new Auth0Lock(myConfig.clientID, myConfig.domain, {
+            theme: {
+                logo: "https://static.qgov.net.au/assets/v2/images/skin/qg-coa-ogp.png",
+                primaryColor: "#005375"
+            },
             languageDictionary: {
-                signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> and <a href='/privacy' target='_new'>privacy policy</a>.",
-                title: "My Company"
+                title: "QGov",
+                loginLabel: "Sign In",
+                signUpLabel: "Create",
+                signUpSubmitLabel: "Create",
+                emailInputPlaceholder: "your email address",
+                signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> and <a href='/privacy' target='_new'>privacy policy</a>."
             },
             auth: {
+                connectionScopes: {
+                    connectionName: ['LdapCustomDBConn']
+                },
                 responseType: 'id_token token',
+                requires_username: true,
+                usernameStyle: 'username',
                 params: {
                     audience: 'https://resourceapi.com',
                     // Learn about scopes: https://auth0.com/docs/scopes
-                    scope: 'openid profile'
+                    scope: 'openid email profile'
                 }
             }
         });
